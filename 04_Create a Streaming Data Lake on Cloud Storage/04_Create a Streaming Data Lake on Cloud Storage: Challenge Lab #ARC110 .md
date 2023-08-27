@@ -4,6 +4,10 @@
 ```cmd
 TOPIC_ID=
 ```
+### Put your message inside the quotation mark
+```cmd
+MESSAGE=""
+````
 ```cmd
 REGION=
 ```
@@ -19,7 +23,7 @@ gcloud app create --region=$REGION
 echo "y" | gcloud scheduler jobs create pubsub publisher-job \
     --schedule="* * * * *" \
     --topic=$TOPIC_ID \
-    --message-body="Hello!"
+    --message-body="$MESSAGE"
 gcloud scheduler jobs run publisher-job
 git clone https://github.com/GoogleCloudPlatform/java-docs-samples.git
 cd java-docs-samples/pubsub/streaming-analytics
