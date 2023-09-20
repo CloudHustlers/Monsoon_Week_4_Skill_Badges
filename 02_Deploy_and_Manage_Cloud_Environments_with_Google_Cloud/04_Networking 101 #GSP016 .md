@@ -1,19 +1,34 @@
 # GSP016
 >🚨 [PLEASE SUBSCRIBE OUR CHANNEL CLOUDHUSTLER](https://www.youtube.com/@cloudhustlers) **&** [JOIN OUR COMMUNITY](https://chat.whatsapp.com/KBfUcSleGGEFf2Xvvm8FW3)
 ## Run in cloudshell
+> Copy ZONE1 From task 6 step 1 inside the command (It would be like this ```us-central1-a``` )
 ```cmd
+export ZONE1=
+```
+> Copy ZONE2 From task 6 step 2 inside the 1st command (It would be like this ```us-east1-c```)
+```cmd
+export ZONE2=
+```
+> Copy ZONE3 From task 6 step 2 inside the 2nd command (It would be like this ```us-east4-c``` )
+```cmd
+export ZONE3=
+```
+```cmd
+export REGION1=${ZONE1%-*}
+export REGION2=${ZONE2%-*}
+export REGION3=${ZONE3%-*}
 gcloud compute networks create taw-custom-network --subnet-mode custom
-gcloud compute networks subnets create subnet-us-central \
+gcloud compute networks subnets create subnet-$REGION1 \
    --network taw-custom-network \
-   --region us-central1 \
+   --region $REGION1 \
    --range 10.0.0.0/16
-gcloud compute networks subnets create subnet-europe-west \
+gcloud compute networks subnets create subnet-$REGION2 \
    --network taw-custom-network \
-   --region europe-west1 \
+   --region $REGION2 \
    --range 10.1.0.0/16
-gcloud compute networks subnets create subnet-asia-east \
+gcloud compute networks subnets create subnet-$REGION3 \
    --network taw-custom-network \
-   --region asia-east1 \
+   --region $REGION3 \
    --range 10.2.0.0/16
 gcloud compute networks subnets list \
    --network taw-custom-network
@@ -25,18 +40,18 @@ gcloud compute firewall-rules create "nw101-allow-internal" --allow tcp:0-65535,
 gcloud compute firewall-rules create "nw101-allow-ssh" --allow tcp:22 --network "taw-custom-network" --target-tags "ssh"
 gcloud compute firewall-rules create "nw101-allow-rdp" --allow tcp:3389 --network "taw-custom-network"
 gcloud compute instances create us-test-01 \
---subnet subnet-us-central \
---zone us-central1-a \
+--subnet subnet-$REGION1 \
+--zone $ZONE1 \
 --machine-type e2-standard-2 \
 --tags ssh,http,rules
-gcloud compute instances create europe-test-01 \
---subnet subnet-europe-west \
---zone europe-west1-b \
+gcloud compute instances create us-test-02 \
+--subnet subnet-$REGION2 \
+--zone $ZONE2 \
 --machine-type e2-standard-2 \
 --tags ssh,http,rules
-gcloud compute instances create asia-test-01 \
---subnet subnet-asia-east \
---zone asia-east1-a \
+gcloud compute instances create us-test-03 \
+--subnet subnet-$REGION3 \
+--zone $ZONE3 \
 --machine-type e2-standard-2 \
 --tags ssh,http,rules
 ```
