@@ -5,6 +5,8 @@
 ```cmd
 export ZONE1=
 ```
+#### Refer the Screenshot 
+![image](https://github.com/CloudHustlers/Monsoon_Week_4_Skill_Badges/assets/88576711/96e9d884-7094-41a5-b0af-8f8705d45099)
 > Copy ZONE2 From task 6 step 2 inside the 1st command (It would be like this ```us-east1-c```)
 ```cmd
 export ZONE2=
